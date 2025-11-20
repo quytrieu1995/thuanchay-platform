@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Script để chạy server trên VPS
+# Tự động cài đặt dependencies và khởi động server
+
+echo "🚀 Starting Thuần Chay Platform Server..."
+
+# Kiểm tra Node.js
+if ! command -v node &> /dev/null; then
+    echo "❌ Node.js is not installed. Please install Node.js first."
+    exit 1
+fi
+
+echo "✅ Node.js version: $(node --version)"
+echo "✅ npm version: $(npm --version)"
+
+# Cài đặt dependencies nếu chưa có
+if [ ! -d "node_modules" ]; then
+    echo "📦 Installing dependencies..."
+    npm install
+fi
+
+# Tạo thư mục database nếu chưa có
+mkdir -p server/database
+
+# Chạy server
+echo "🌟 Starting server..."
+if [ "$NODE_ENV" = "production" ]; then
+    echo "🏗️  Building frontend..."
+    npm run build
+    echo "🚀 Starting production server..."
+    NODE_ENV=production npm run server
+else
+    echo "🚀 Starting development server..."
+    npm run server
+fi
+

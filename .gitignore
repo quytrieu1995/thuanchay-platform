@@ -35,3 +35,16 @@ backups/
 *.sql
 *.archive
 
+# Database files
+server/database/*.db
+server/database/*.db-shm
+server/database/*.db-wal
+*.db
+*.db-shm
+*.db-wal
+
+# Environment files
+.env
+.env.local
+.env.production
+

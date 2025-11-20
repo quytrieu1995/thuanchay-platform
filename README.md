@@ -44,12 +44,18 @@ Website quản lý bán hàng với các chức năng tương tự Thuần Chay 
 
 ## Công nghệ sử dụng
 
+### Frontend
 - **React 18** - Thư viện UI
 - **React Router** - Điều hướng
 - **Tailwind CSS** - Styling
 - **Recharts** - Biểu đồ
 - **Lucide React** - Icons
 - **Vite** - Build tool
+
+### Backend
+- **Express.js** - Web framework
+- **SQLite (better-sqlite3)** - Database
+- **CORS** - Cross-origin resource sharing
 
 ## ⚠️ Yêu cầu hệ thống
 
@@ -87,17 +93,47 @@ Script sẽ tự động:
 npm install
 ```
 
-3. Chạy development server:
+3. Chạy backend server:
+```bash
+npm run server
+```
+
+Backend sẽ tự động:
+- ✅ Tạo database SQLite tại `server/database/thuanchay.db`
+- ✅ Tạo các bảng cần thiết (products, orders, customers, returns, users)
+- ✅ Insert dữ liệu mẫu (nếu database mới)
+- ✅ Khởi động API server tại `http://localhost:3000`
+
+4. Chạy frontend (terminal khác):
 ```bash
 npm run dev
 ```
 
-4. Mở trình duyệt tại: **http://localhost:5173**
+5. Mở trình duyệt tại: **http://localhost:5173**
 
 ### Các lệnh khác
 
+- **Chạy backend server**: `npm run server`
+- **Chạy cả frontend và backend**: `npm run start:dev` (cần cài concurrently)
 - **Build cho production**: `npm run build`
+- **Chạy production**: `npm run start:prod` (build frontend + chạy backend)
 - **Preview build**: `npm run preview`
+
+## 🚀 Deploy lên VPS
+
+Hệ thống sẽ **tự động tạo database và kết nối backend** khi chạy trên VPS.
+
+Xem hướng dẫn chi tiết tại: [HUONG_DAN_DEPLOY_VPS.md](./HUONG_DAN_DEPLOY_VPS.md)
+
+**Nhanh chóng:**
+```bash
+# Linux/Mac
+chmod +x start-server.sh
+./start-server.sh
+
+# Windows
+start-server.bat
+```
 
 ## Giao diện
 
@@ -115,8 +151,35 @@ npm run dev
 - ✅ Tìm kiếm và lọc dữ liệu
 - ✅ Biểu đồ và đồ thị
 
-## Lưu ý
+## Database
 
-Hiện tại dữ liệu được lưu trữ trong state (local). Để sử dụng trong production, cần tích hợp với backend API và database.
+- **SQLite Database**: Tự động tạo tại `server/database/thuanchay.db` khi chạy lần đầu
+- **Tự động migration**: Hệ thống tự động tạo các bảng và dữ liệu mẫu
+- **Backup**: Database file có thể backup trực tiếp (copy file `.db`)
+
+## API Endpoints
+
+Backend API có sẵn tại `http://localhost:3000/api`:
+
+- `GET /api/products` - Lấy danh sách sản phẩm
+- `POST /api/products` - Tạo sản phẩm mới
+- `GET /api/orders` - Lấy danh sách đơn hàng
+- `POST /api/orders` - Tạo đơn hàng mới
+- `GET /api/customers` - Lấy danh sách khách hàng
+- `POST /api/customers` - Tạo khách hàng mới
+- `GET /api/returns` - Lấy danh sách đơn trả hàng
+- `POST /api/auth/login` - Đăng nhập
+
+Xem chi tiết tại `API_DOCUMENTATION.md`
+
+## Tính năng Backend
+
+- ✅ **Tự động tạo database** khi chạy lần đầu
+- ✅ **RESTful API** đầy đủ cho CRUD operations
+- ✅ **SQLite database** - Không cần cài đặt database server riêng
+- ✅ **Dữ liệu mẫu** tự động insert khi khởi tạo
+- ✅ **Transaction support** - Đảm bảo tính nhất quán dữ liệu
+- ✅ **Error handling** - Xử lý lỗi đầy đủ
+- ✅ **CORS enabled** - Hỗ trợ cross-origin requests
 
 
