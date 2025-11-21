@@ -23,9 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Deploy scripts with sensitive info
-deploy.sh
-deploy-nginx.sh
+# Deploy scripts with sensitive info (keep deploy-ubuntu.sh and setup-vps-github.sh)
 deploy-config.sh
 .env.deploy
 

@@ -63,21 +63,17 @@ Website quản lý bán hàng với các chức năng tương tự Thuần Chay 
 
 1. Tải Node.js từ: https://nodejs.org/ (khuyến nghị phiên bản LTS)
 2. Cài đặt Node.js (sẽ bao gồm cả npm)
-3. Khởi động lại terminal/PowerShell sau khi cài đặt
+3. Khởi động lại terminal sau khi cài đặt
 
 ## Cài đặt và chạy
 
 ### Cách 1: Sử dụng script tự động (Khuyến nghị)
 
-**Windows:**
-
-**Nếu gặp lỗi Execution Policy khi chạy `.\start.ps1`:**
-```powershell
-powershell -ExecutionPolicy Bypass -File .\start.ps1
+**Linux/Mac:**
+```bash
+chmod +x start-server.sh
+./start-server.sh
 ```
-
-**Hoặc đơn giản hơn:**
-- Double-click vào file `start.bat`
 
 Script sẽ tự động:
 - Kiểm tra Node.js đã cài đặt chưa
@@ -86,7 +82,7 @@ Script sẽ tự động:
 
 ### Cách 2: Chạy thủ công
 
-1. Mở terminal/PowerShell trong thư mục dự án
+1. Mở terminal trong thư mục dự án
 
 2. Cài đặt dependencies:
 ```bash
@@ -127,12 +123,8 @@ Hệ thống sẽ **tự động tạo database và kết nối backend** khi ch
 
 **Nhanh chóng:**
 ```bash
-# Linux/Mac
 chmod +x start-server.sh
 ./start-server.sh
-
-# Windows
-start-server.bat
 ```
 
 ### Deploy với Domain và SSL (Truy cập từ internet)
@@ -152,6 +144,8 @@ sudo ./setup-domain.sh your-domain.com
 **Hướng dẫn chi tiết:**
 - 📖 [Deploy cơ bản](./HUONG_DAN_DEPLOY_VPS.md)
 - 🌐 [Cấu hình Domain và SSL](./HUONG_DAN_DEPLOY_DOMAIN.md) - **Để truy cập từ internet**
+- 🚀 [GitHub Auto Deploy](./HUONG_DAN_GITHUB_DEPLOY.md) - **Tự động deploy khi push code** (Khuyến nghị)
+- ⚡ [Quick Start GitHub Deploy](./README_GITHUB.md) - **Hướng dẫn nhanh**
 
 ## Giao diện
 
