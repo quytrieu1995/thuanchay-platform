@@ -1,0 +1,74 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js v24.11.1
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24.11.1'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build project
+      run: npm run build
+      env:
+        NODE_ENV: production
+    
+    - name: Deploy to VPS
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        source: "dist,server,package.json,package-lock.json,ecosystem.config.cjs,nginx-sale.thuanchay.vn.conf"
+        target: "/var/www/thuanchay-platform"
+        strip_components: 0
+    
+    - name: Run deployment script on VPS
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        script: |
+          set -e
+          cd /var/www/thuanchay-platform
+          
+          # Load NVM
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          
+          # Ensure Node.js v24.11.1
+          nvm use 24.11.1 || nvm install 24.11.1
+          nvm alias default 24.11.1
+          
+          # Install dependencies
+          npm ci --production
+          
+          # Reload or start PM2
+          if pm2 list | grep -q "thuanchay-api"; then
+            pm2 reload ecosystem.config.cjs --env production
+          else
+            pm2 start ecosystem.config.cjs --env production
+            pm2 save
+          fi
+          
+          # Show status
+          pm2 status
+
