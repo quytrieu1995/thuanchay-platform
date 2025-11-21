@@ -1,5 +1,6 @@
 // PM2 Ecosystem file for production deployment
 // Note: PM2 requires CommonJS format, not ES modules
+// Using .cjs extension because package.json has "type": "module"
 module.exports = {
   apps: [
     {

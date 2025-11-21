@@ -133,7 +133,7 @@ VITE_API_BASE_URL=https://your-domain.com/api
 
 ```bash
 # Chạy với PM2
-pm2 start ecosystem.config.js --env production
+pm2 start ecosystem.config.cjs --env production
 
 # Hoặc chạy trực tiếp
 pm2 start npm --name "thuanchay-api" -- run start:prod
