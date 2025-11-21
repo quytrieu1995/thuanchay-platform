@@ -82,6 +82,19 @@ scp -r ./thuanchay-platform root@your-vps-ip:/var/www/
 
 Sử dụng FileZilla hoặc WinSCP để upload toàn bộ thư mục project lên `/var/www/thuanchay-platform`
 
+**⚠️ Lưu ý quan trọng về thư mục:**
+
+Ubuntu mặc định chỉ cho phép truy cập web browser vào các file trong:
+- `/var/www` và các thư mục con
+- `/var/www/html` (document root mặc định)
+- `/usr/share` (cho các ứng dụng web)
+
+**Khuyến nghị:** Sử dụng `/var/www/thuanchay-platform` như trong hướng dẫn này để tránh các vấn đề về quyền truy cập.
+
+**Nếu bạn muốn sử dụng thư mục khác (ví dụ: `/srv/thuanchay-platform`):**
+- Với **Nginx**: Không có vấn đề, chỉ cần cấu hình đúng đường dẫn trong config
+- Với **Apache**: Cần whitelist thư mục trong `/etc/apache2/apache2.conf` (xem phần Troubleshooting bên dưới)
+
 ### 2.2. Cài đặt dependencies
 
 ```bash
@@ -506,6 +519,121 @@ sudo certbot renew
 
 # Reload Nginx
 sudo systemctl reload nginx
+```
+
+### Lỗi: Permission denied hoặc Forbidden (403)
+
+**Nếu sử dụng Apache và deploy ở thư mục ngoài /var/www:**
+
+Ubuntu Apache mặc định chỉ cho phép truy cập vào `/var/www`, `/var/www/html`, và `/usr/share`. Nếu bạn deploy ở thư mục khác (như `/srv`), cần whitelist:
+
+```bash
+# Mở file cấu hình Apache
+sudo nano /etc/apache2/apache2.conf
+
+# Thêm vào cuối file (thay /srv/thuanchay-platform bằng đường dẫn của bạn):
+<Directory /srv/thuanchay-platform>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+
+# Restart Apache
+sudo systemctl restart apache2
+```
+
+**Kiểm tra quyền truy cập thư mục:**
+
+```bash
+# Đảm bảo thư mục có quyền đọc
+sudo chmod -R 755 /var/www/thuanchay-platform
+
+# Đảm bảo owner đúng (thay www-data bằng user của bạn)
+sudo chown -R www-data:www-data /var/www/thuanchay-platform
+
+# Hoặc với Nginx
+sudo chown -R www-data:www-data /var/www/thuanchay-platform
+```
+
+**Kiểm tra quyền file:**
+
+```bash
+# Kiểm tra quyền hiện tại
+ls -la /var/www/thuanchay-platform
+
+# Sửa quyền nếu cần
+sudo chmod -R 644 /var/www/thuanchay-platform/dist/*
+sudo find /var/www/thuanchay-platform/dist -type d -exec chmod 755 {} \;
+```
+
+## 🌐 Phụ lục: Sử dụng Apache thay vì Nginx
+
+Nếu bạn muốn sử dụng Apache thay vì Nginx:
+
+### Cài đặt Apache
+
+```bash
+sudo apt install -y apache2
+sudo systemctl start apache2
+sudo systemctl enable apache2
+```
+
+### Cấu hình Virtual Host cho Apache
+
+```bash
+sudo nano /etc/apache2/sites-available/thuanchay-platform.conf
+```
+
+Thêm nội dung:
+
+```apache
+<VirtualHost *:80>
+    ServerName your-domain.com
+    ServerAlias www.your-domain.com
+    
+    # Document root (nếu serve static files trực tiếp)
+    # DocumentRoot /var/www/thuanchay-platform/dist
+    
+    # Proxy đến Node.js backend
+    ProxyPreserveHost On
+    ProxyPass /api http://localhost:3000/api
+    ProxyPassReverse /api http://localhost:3000/api
+    
+    ProxyPass / http://localhost:3000/
+    ProxyPassReverse / http://localhost:3000/
+    
+    # Logs
+    ErrorLog ${APACHE_LOG_DIR}/thuanchay-error.log
+    CustomLog ${APACHE_LOG_DIR}/thuanchay-access.log combined
+</VirtualHost>
+```
+
+Kích hoạt site và modules:
+
+```bash
+# Enable required modules
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+sudo a2enmod rewrite
+
+# Enable site
+sudo a2ensite thuanchay-platform.conf
+
+# Disable default site (tùy chọn)
+sudo a2dissite 000-default.conf
+
+# Test config
+sudo apache2ctl configtest
+
+# Restart Apache
+sudo systemctl restart apache2
+```
+
+### Cấu hình SSL với Apache
+
+```bash
+sudo apt install -y certbot python3-certbot-apache
+sudo certbot --apache -d your-domain.com -d www.your-domain.com
 ```
 
 ## 🔐 Bảo mật bổ sung
