@@ -2,6 +2,19 @@
 
 Hướng dẫn chi tiết để deploy project lên VPS và cấu hình domain để truy cập từ internet.
 
+## 🎯 Quick Start cho sale.thuanchay.vn
+
+Nếu bạn đang deploy cho domain **sale.thuanchay.vn**, làm theo các bước sau:
+
+1. **Cấu hình DNS:** Thêm A record `sale` → IP VPS của bạn
+2. **Upload code:** Clone/upload code lên `/var/www/thuanchay-platform`
+3. **Cài đặt:** `npm install && npm run build`
+4. **Cấu hình Nginx:** Copy file `nginx-sale.thuanchay.vn.conf` vào `/etc/nginx/sites-available/`
+5. **SSL:** Chạy `sudo certbot --nginx -d sale.thuanchay.vn`
+6. **Chạy PM2:** `pm2 start ecosystem.config.cjs --env production`
+
+Chi tiết từng bước xem bên dưới.
+
 ## 📋 Yêu cầu
 
 - VPS/Server với Linux (Ubuntu/Debian khuyến nghị)
@@ -122,12 +135,14 @@ mkdir -p logs
 nano .env
 ```
 
-Thêm nội dung:
+Thêm nội dung (cho domain sale.thuanchay.vn):
 ```env
 PORT=3000
 NODE_ENV=production
-VITE_API_BASE_URL=https://your-domain.com/api
+VITE_API_BASE_URL=https://sale.thuanchay.vn/api
 ```
+
+**Lưu ý:** Thay `sale.thuanchay.vn` bằng domain của bạn nếu khác.
 
 ### 3.2. Chạy server với PM2
 
@@ -162,37 +177,38 @@ curl http://localhost:3000/health
 
 Đăng nhập vào tài khoản domain của bạn và thêm các DNS records:
 
+**Cho subdomain sale.thuanchay.vn:**
+
 **Type A Record:**
 ```
-Host: @
+Host: sale
 Type: A
 Value: your-vps-ip
 TTL: 3600
 ```
 
-**Type A Record cho www:**
-```
-Host: www
-Type: A
-Value: your-vps-ip
-TTL: 3600
-```
+**Ví dụ cụ thể cho sale.thuanchay.vn:**
+- Domain: `thuanchay.vn`
+- Subdomain: `sale`
+- VPS IP: `123.456.789.012` (thay bằng IP VPS của bạn)
+- Thêm A record: `sale` → `123.456.789.012`
 
-**Ví dụ:**
-- Domain: `thuanchay.com`
-- VPS IP: `123.456.789.012`
-- Thêm A record: `@` → `123.456.789.012`
-- Thêm A record: `www` → `123.456.789.012`
+**Lưu ý:** 
+- Nếu domain chính là `thuanchay.vn`, bạn chỉ cần thêm A record cho subdomain `sale`
+- Không cần thêm `www` cho subdomain, chỉ cần `sale`
 
 ### 4.2. Kiểm tra DNS đã propagate
 
 ```bash
-# Kiểm tra từ VPS
-nslookup your-domain.com
-dig your-domain.com
+# Kiểm tra từ VPS (cho sale.thuanchay.vn)
+nslookup sale.thuanchay.vn
+dig sale.thuanchay.vn
 
 # Hoặc từ máy local
-ping your-domain.com
+ping sale.thuanchay.vn
+
+# Kiểm tra DNS propagation online
+# https://www.whatsmydns.net/#A/sale.thuanchay.vn
 ```
 
 **Lưu ý:** DNS có thể mất 5 phút đến 48 giờ để propagate hoàn toàn.
@@ -201,16 +217,25 @@ ping your-domain.com
 
 ### 5.1. Tạo file cấu hình Nginx
 
+**Cách 1: Sử dụng file config có sẵn (Khuyến nghị cho sale.thuanchay.vn)**
+
 ```bash
-sudo nano /etc/nginx/sites-available/thuanchay-platform
+# Copy file config có sẵn
+sudo cp /var/www/thuanchay-platform/nginx-sale.thuanchay.vn.conf /etc/nginx/sites-available/sale.thuanchay.vn
 ```
 
-Thêm nội dung sau (thay `your-domain.com` bằng domain của bạn):
+**Cách 2: Tạo file mới**
+
+```bash
+sudo nano /etc/nginx/sites-available/sale.thuanchay.vn
+```
+
+Thêm nội dung sau (đã cấu hình sẵn cho sale.thuanchay.vn):
 
 ```nginx
 server {
     listen 80;
-    server_name your-domain.com www.your-domain.com;
+    server_name sale.thuanchay.vn;
 
     # Logs
     access_log /var/log/nginx/thuanchay-access.log;
@@ -269,8 +294,8 @@ server {
 ### 5.2. Kích hoạt site
 
 ```bash
-# Tạo symbolic link
-sudo ln -s /etc/nginx/sites-available/thuanchay-platform /etc/nginx/sites-enabled/
+# Tạo symbolic link (cho sale.thuanchay.vn)
+sudo ln -s /etc/nginx/sites-available/sale.thuanchay.vn /etc/nginx/sites-enabled/
 
 # Xóa default site (tùy chọn)
 sudo rm /etc/nginx/sites-enabled/default
@@ -293,12 +318,14 @@ sudo apt install -y certbot python3-certbot-nginx
 ### 6.2. Lấy SSL Certificate
 
 ```bash
-# Tự động cấu hình SSL cho Nginx
-sudo certbot --nginx -d your-domain.com -d www.your-domain.com
+# Tự động cấu hình SSL cho Nginx (cho sale.thuanchay.vn)
+sudo certbot --nginx -d sale.thuanchay.vn
 
 # Hoặc chỉ lấy certificate (cấu hình thủ công)
-sudo certbot certonly --nginx -d your-domain.com -d www.your-domain.com
+sudo certbot certonly --nginx -d sale.thuanchay.vn
 ```
+
+**Lưu ý:** Với subdomain, bạn chỉ cần cấu hình cho `sale.thuanchay.vn`, không cần `www.sale.thuanchay.vn`
 
 Certbot sẽ:
 - Tự động cấu hình Nginx để sử dụng HTTPS
@@ -327,10 +354,10 @@ File sẽ có thêm phần SSL:
 ```nginx
 server {
     listen 443 ssl http2;
-    server_name your-domain.com www.your-domain.com;
+    server_name sale.thuanchay.vn;
 
-    ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/sale.thuanchay.vn/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/sale.thuanchay.vn/privkey.pem;
     
     # SSL configuration
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -343,7 +370,7 @@ server {
 # Redirect HTTP to HTTPS
 server {
     listen 80;
-    server_name your-domain.com www.your-domain.com;
+    server_name sale.thuanchay.vn;
     return 301 https://$server_name$request_uri;
 }
 ```
@@ -373,9 +400,9 @@ sudo ufw status
 
 ### 8.1. Kiểm tra từ trình duyệt
 
-1. Mở trình duyệt và truy cập: `https://your-domain.com`
-2. Kiểm tra API: `https://your-domain.com/api/health`
-3. Kiểm tra frontend: `https://your-domain.com`
+1. Mở trình duyệt và truy cập: `https://sale.thuanchay.vn`
+2. Kiểm tra API: `https://sale.thuanchay.vn/api/health`
+3. Kiểm tra frontend: `https://sale.thuanchay.vn`
 
 ### 8.2. Kiểm tra logs
 
@@ -383,9 +410,9 @@ sudo ufw status
 # PM2 logs
 pm2 logs thuanchay-api
 
-# Nginx logs
-sudo tail -f /var/log/nginx/thuanchay-access.log
-sudo tail -f /var/log/nginx/thuanchay-error.log
+# Nginx logs (cho sale.thuanchay.vn)
+sudo tail -f /var/log/nginx/sale-thuanchay-access.log
+sudo tail -f /var/log/nginx/sale-thuanchay-error.log
 
 # System logs
 sudo journalctl -u nginx -f
@@ -500,12 +527,12 @@ sudo tail -f /var/log/nginx/thuanchay-error.log
 ### Lỗi: Domain không resolve
 
 ```bash
-# Kiểm tra DNS
-nslookup your-domain.com
-dig your-domain.com
+# Kiểm tra DNS (cho sale.thuanchay.vn)
+nslookup sale.thuanchay.vn
+dig sale.thuanchay.vn
 
 # Kiểm tra DNS propagation
-# https://www.whatsmydns.net/
+# https://www.whatsmydns.net/#A/sale.thuanchay.vn
 ```
 
 ### Lỗi: SSL Certificate không hoạt động
@@ -706,8 +733,8 @@ pm2 set pm2-logrotate:retain 7
 
 Sau khi hoàn thành các bước trên, bạn có thể:
 
-- ✅ Truy cập website từ internet: `https://your-domain.com`
-- ✅ API hoạt động tại: `https://your-domain.com/api`
+- ✅ Truy cập website từ internet: `https://sale.thuanchay.vn`
+- ✅ API hoạt động tại: `https://sale.thuanchay.vn/api`
 - ✅ SSL/HTTPS đã được cấu hình
 - ✅ Server tự động restart khi reboot
 - ✅ Database tự động được tạo và quản lý
