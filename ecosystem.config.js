@@ -1,5 +1,6 @@
 // PM2 Ecosystem file for production deployment
-export default {
+// Note: PM2 requires CommonJS format, not ES modules
+module.exports = {
   apps: [
     {
       name: 'thuanchay-api',

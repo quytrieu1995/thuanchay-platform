@@ -2,6 +2,12 @@
 
 Hệ thống sẽ tự động tạo database và kết nối backend khi chạy trên VPS.
 
+## 📌 Quick Links
+
+- **Deploy cơ bản**: Xem hướng dẫn bên dưới
+- **Cấu hình Domain và SSL**: Xem [HUONG_DAN_DEPLOY_DOMAIN.md](./HUONG_DAN_DEPLOY_DOMAIN.md)
+- **Script tự động deploy**: Sử dụng `deploy.sh` hoặc `setup-domain.sh`
+
 ## Yêu cầu hệ thống
 
 - Node.js 18+ (khuyến nghị LTS)

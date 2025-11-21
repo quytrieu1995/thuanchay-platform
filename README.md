@@ -123,7 +123,7 @@ npm run dev
 
 Hệ thống sẽ **tự động tạo database và kết nối backend** khi chạy trên VPS.
 
-Xem hướng dẫn chi tiết tại: [HUONG_DAN_DEPLOY_VPS.md](./HUONG_DAN_DEPLOY_VPS.md)
+### Deploy cơ bản
 
 **Nhanh chóng:**
 ```bash
@@ -134,6 +134,24 @@ chmod +x start-server.sh
 # Windows
 start-server.bat
 ```
+
+### Deploy với Domain và SSL (Truy cập từ internet)
+
+**Tự động deploy:**
+```bash
+# Cấp quyền thực thi
+chmod +x deploy.sh setup-domain.sh
+
+# Deploy project
+sudo ./deploy.sh your-domain.com
+
+# Hoặc chỉ setup domain và SSL
+sudo ./setup-domain.sh your-domain.com
+```
+
+**Hướng dẫn chi tiết:**
+- 📖 [Deploy cơ bản](./HUONG_DAN_DEPLOY_VPS.md)
+- 🌐 [Cấu hình Domain và SSL](./HUONG_DAN_DEPLOY_DOMAIN.md) - **Để truy cập từ internet**
 
 ## Giao diện
 
