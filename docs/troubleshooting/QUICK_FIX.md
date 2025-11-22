@@ -112,4 +112,6 @@ Sau khi clone và trước khi chạy:
 - [FIX_UBUNTU_ERRORS.md](./FIX_UBUNTU_ERRORS.md) - Tất cả lỗi Ubuntu
 - [FIX_QT_XCB_ERROR.md](./FIX_QT_XCB_ERROR.md) - Lỗi Qt XCB chi tiết
 - [FIX_NPM_GYP_ERROR.md](./FIX_NPM_GYP_ERROR.md) - Lỗi npm gyp Windows
+- [FIX_NGINX_CONFIG_ERROR.md](./FIX_NGINX_CONFIG_ERROR.md) - Lỗi cấu hình Nginx
+- [FIX_CERTBOT_NGINX_ERROR.md](./FIX_CERTBOT_NGINX_ERROR.md) - Lỗi Certbot Nginx plugin
 

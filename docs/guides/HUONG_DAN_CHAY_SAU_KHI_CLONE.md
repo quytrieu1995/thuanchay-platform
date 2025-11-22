@@ -125,7 +125,7 @@ npm run preview
 
 ### Lỗi trên Ubuntu/Linux
 
-📖 **Xem hướng dẫn chi tiết:** [FIX_UBUNTU_ERRORS.md](./FIX_UBUNTU_ERRORS.md)
+📖 **Xem hướng dẫn chi tiết:** [../troubleshooting/FIX_UBUNTU_ERRORS.md](../troubleshooting/FIX_UBUNTU_ERRORS.md)
 
 **Giải pháp nhanh cho npm error gyp:**
 ```bash
@@ -139,7 +139,7 @@ npm install
 
 **Giải pháp nhanh:**
 
-📖 **Xem hướng dẫn chi tiết:** [FIX_NPM_GYP_ERROR.md](./FIX_NPM_GYP_ERROR.md)
+📖 **Xem hướng dẫn chi tiết:** [../troubleshooting/FIX_NPM_GYP_ERROR.md](../troubleshooting/FIX_NPM_GYP_ERROR.md)
 
 **Tóm tắt:**
 
@@ -245,7 +245,7 @@ source ~/.bashrc
 npm run server
 ```
 
-📖 **Xem hướng dẫn chi tiết:** [FIX_QT_XCB_ERROR.md](./FIX_QT_XCB_ERROR.md)
+📖 **Xem hướng dẫn chi tiết:** [../troubleshooting/FIX_QT_XCB_ERROR.md](../troubleshooting/FIX_QT_XCB_ERROR.md)
 
 ### Lỗi: Module not found
 
@@ -307,9 +307,9 @@ VITE_API_BASE_URL=http://localhost:3000/api
 
 ## 📚 Tài liệu tham khảo
 
-- [API Documentation](./API_DOCUMENTATION.md)
-- [Deploy lên VPS](./HUONG_DAN_DEPLOY_VPS.md)
-- [Cấu hình Domain](./HUONG_DAN_DEPLOY_DOMAIN.md)
+- [API Documentation](../API_DOCUMENTATION.md)
+- [Quick Fix Guide](../troubleshooting/QUICK_FIX.md)
+- [Troubleshooting](../troubleshooting/)
 
 ## 🎉 Hoàn thành!
 

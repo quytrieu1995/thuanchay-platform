@@ -100,7 +100,7 @@ server/
 
 ## API Endpoints
 
-Xem chi tiết tại `API_DOCUMENTATION.md`
+Xem chi tiết tại [../docs/API_DOCUMENTATION.md](../docs/API_DOCUMENTATION.md)
 
 ## Khởi tạo Database
 

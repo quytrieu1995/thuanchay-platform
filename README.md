@@ -68,13 +68,13 @@ Website quản lý bán hàng với các chức năng tương tự Thuần Chay 
 **⚠️ Lưu ý:**
 
 - **Windows:** Nếu gặp lỗi `npm error gyp`, cần cài đặt Python và Visual Studio Build Tools
-  - 📖 Xem hướng dẫn fix: [FIX_NPM_GYP_ERROR.md](./FIX_NPM_GYP_ERROR.md)
+  - 📖 Xem hướng dẫn fix: [docs/troubleshooting/FIX_NPM_GYP_ERROR.md](./docs/troubleshooting/FIX_NPM_GYP_ERROR.md)
   - 💡 **Khuyến nghị:** Sử dụng WSL để tránh các vấn đề với native modules
 
 - **Ubuntu/Linux:** Nếu gặp lỗi khi cài đặt
-  - 📖 Xem hướng dẫn fix: [FIX_UBUNTU_ERRORS.md](./FIX_UBUNTU_ERRORS.md)
+  - 📖 Xem hướng dẫn fix: [docs/troubleshooting/FIX_UBUNTU_ERRORS.md](./docs/troubleshooting/FIX_UBUNTU_ERRORS.md)
   - 💡 **Giải pháp nhanh:** `sudo apt install -y build-essential python3`
-  - 🔧 **Lỗi Qt XCB:** Chạy `source fix-env.sh` hoặc xem [FIX_QT_XCB_ERROR.md](./FIX_QT_XCB_ERROR.md)
+  - 🔧 **Lỗi Qt XCB:** Chạy `source fix-env.sh` hoặc xem [docs/troubleshooting/FIX_QT_XCB_ERROR.md](./docs/troubleshooting/FIX_QT_XCB_ERROR.md)
   - 🔧 **Lỗi concurrently:** Script sẽ tự động cài đặt, hoặc chạy `npm install concurrently --save-dev`
 
 ## Cài đặt và chạy
@@ -107,8 +107,8 @@ npm run dev
 npm run start:dev
 ```
 
-📖 **Xem hướng dẫn chi tiết:** [HUONG_DAN_CHAY_SAU_KHI_CLONE.md](./HUONG_DAN_CHAY_SAU_KHI_CLONE.md)  
-🔧 **Gặp lỗi?** Xem [QUICK_FIX.md](./QUICK_FIX.md)
+📖 **Xem hướng dẫn chi tiết:** [docs/guides/HUONG_DAN_CHAY_SAU_KHI_CLONE.md](./docs/guides/HUONG_DAN_CHAY_SAU_KHI_CLONE.md)  
+🔧 **Gặp lỗi?** Xem [docs/troubleshooting/QUICK_FIX.md](./docs/troubleshooting/QUICK_FIX.md)
 
 ### Cách 1: Sử dụng script tự động (Khuyến nghị)
 
@@ -202,7 +202,7 @@ Backend API có sẵn tại `http://localhost:3000/api`:
 - `GET /api/returns` - Lấy danh sách đơn trả hàng
 - `POST /api/auth/login` - Đăng nhập
 
-Xem chi tiết tại `API_DOCUMENTATION.md`
+Xem chi tiết tại [docs/API_DOCUMENTATION.md](./docs/API_DOCUMENTATION.md)
 
 ## Tính năng Backend
 

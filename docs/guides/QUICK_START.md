@@ -202,9 +202,9 @@ dig your-domain.com
 
 ## 📚 Tài liệu chi tiết
 
-- [HUONG_DAN_DEPLOY_VPS.md](./HUONG_DAN_DEPLOY_VPS.md) - Hướng dẫn deploy cơ bản
-- [HUONG_DAN_DEPLOY_DOMAIN.md](./HUONG_DAN_DEPLOY_DOMAIN.md) - Hướng dẫn cấu hình domain và SSL
-- [API_DOCUMENTATION.md](./API_DOCUMENTATION.md) - Tài liệu API
+- [HUONG_DAN_CHAY_SAU_KHI_CLONE.md](./HUONG_DAN_CHAY_SAU_KHI_CLONE.md) - Hướng dẫn chạy sau khi clone
+- [API_DOCUMENTATION.md](../API_DOCUMENTATION.md) - Tài liệu API
+- [Troubleshooting](../troubleshooting/) - Hướng dẫn fix lỗi
 
 ---
 
