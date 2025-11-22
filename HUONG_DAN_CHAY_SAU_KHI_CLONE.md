@@ -170,27 +170,43 @@ sudo apt install -y nodejs npm python3 build-essential
 npm install
 ```
 
-### Lỗi: Port 3000 đã được sử dụng
+### Lỗi: Port 3000 already in use (EADDRINUSE)
+
+**Server sẽ tự động tìm port khác nếu port 3000 đã được sử dụng.**
+
+**Nếu muốn fix thủ công:**
 
 ```bash
-# Kiểm tra process đang dùng port 3000
+# Tìm process đang dùng port 3000
+# Linux/Mac
+sudo lsof -i :3000
+# hoặc
+sudo netstat -tlnp | grep 3000
+
 # Windows
 netstat -ano | findstr :3000
 
-# Linux/Mac
-lsof -i :3000
-
 # Kill process (thay <PID> bằng Process ID)
+# Linux/Mac
+sudo kill -9 <PID>
+
 # Windows
 taskkill /PID <PID> /F
 
-# Linux/Mac
-kill -9 <PID>
+# Hoặc nếu đang chạy với PM2
+pm2 stop thuanchay-api
+pm2 delete thuanchay-api
 ```
 
-Hoặc thay đổi port trong file `.env`:
-```env
-PORT=3001
+**Hoặc dùng port khác:**
+
+```bash
+# Set port khác
+PORT=3001 npm run server
+
+# Hoặc trong file .env
+echo "PORT=3001" > .env
+npm run server
 ```
 
 ### Lỗi: Port 5173 đã được sử dụng

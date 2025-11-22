@@ -104,12 +104,16 @@ npm run build-release
 cd ../..
 ```
 
-## 🔧 Lỗi: Port 3000 already in use
+## 🔧 Lỗi: Port 3000 already in use (EADDRINUSE)
 
 ### Nguyên nhân
-Port 3000 đã được sử dụng bởi process khác.
+Port 3000 đã được sử dụng bởi process khác (có thể là PM2 đang chạy hoặc instance khác của server).
 
-### Giải pháp
+### Giải pháp tự động
+
+**Server sẽ tự động tìm port khác nếu port 3000 đã được sử dụng.**
+
+Nếu muốn fix thủ công:
 
 ```bash
 # Tìm process đang dùng port 3000
@@ -120,8 +124,24 @@ sudo netstat -tlnp | grep 3000
 # Kill process (thay <PID> bằng Process ID)
 sudo kill -9 <PID>
 
-# Hoặc thay đổi port trong .env
+# Hoặc nếu đang chạy với PM2
+pm2 list
+pm2 stop thuanchay-api
+pm2 delete thuanchay-api
+
+# Sau đó chạy lại
+npm run server
+```
+
+**Hoặc thay đổi port:**
+
+```bash
+# Set port khác
+PORT=3001 npm run server
+
+# Hoặc trong .env
 echo "PORT=3001" > .env
+npm run server
 ```
 
 ## 🔧 Lỗi: ENOENT: no such file or directory

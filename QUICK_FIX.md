@@ -72,6 +72,32 @@ sudo apt install -y build-essential python3
 npm install
 ```
 
+## 🔧 Lỗi: Port 3000 already in use (EADDRINUSE)
+
+**Giải pháp:**
+
+Server sẽ **tự động tìm port khác** nếu port 3000 đã được sử dụng.
+
+**Nếu muốn fix thủ công:**
+
+```bash
+# Tìm và kill process đang dùng port 3000
+sudo lsof -ti:3000 | xargs kill -9
+
+# Hoặc nếu đang chạy với PM2
+pm2 stop thuanchay-api
+pm2 delete thuanchay-api
+
+# Sau đó chạy lại
+npm run server
+```
+
+**Hoặc dùng port khác:**
+
+```bash
+PORT=3001 npm run server
+```
+
 ## ✅ Checklist
 
 Sau khi clone và trước khi chạy:
