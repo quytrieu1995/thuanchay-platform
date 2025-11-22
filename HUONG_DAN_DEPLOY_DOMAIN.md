@@ -220,8 +220,20 @@ ping sale.thuanchay.vn
 **Cách 1: Sử dụng file config có sẵn (Khuyến nghị cho sale.thuanchay.vn)**
 
 ```bash
-# Copy file config có sẵn
+# Đảm bảo Nginx đã được cài đặt
+sudo apt update
+sudo apt install -y nginx
+
+# Kiểm tra file config có tồn tại không
+ls -la /var/www/thuanchay-platform/nginx-sale.thuanchay.vn.conf
+
+# Copy file config có sẵn (đảm bảo có sudo và đường dẫn đúng)
 sudo cp /var/www/thuanchay-platform/nginx-sale.thuanchay.vn.conf /etc/nginx/sites-available/sale.thuanchay.vn
+
+# Nếu gặp lỗi "no such file or directory", kiểm tra:
+# 1. Nginx đã được cài đặt: sudo apt install -y nginx
+# 2. File nguồn có tồn tại: ls -la /var/www/thuanchay-platform/nginx-sale.thuanchay.vn.conf
+# 3. Đang ở đúng thư mục: pwd
 ```
 
 **Cách 2: Tạo file mới**
@@ -309,17 +321,33 @@ sudo systemctl reload nginx
 
 ## 🔒 Bước 6: Cài đặt SSL/HTTPS với Let's Encrypt
 
-### 6.1. Cài đặt Certbot
+### 6.1. Cài đặt Certbot và Nginx Plugin
 
 ```bash
+# Cài đặt Certbot và Nginx plugin
+sudo apt update
 sudo apt install -y certbot python3-certbot-nginx
+
+# Kiểm tra Certbot đã được cài đặt
+certbot --version
+
+# Kiểm tra plugin có sẵn (sẽ thấy "nginx" trong danh sách)
+certbot plugins
 ```
+
+**⚠️ Lưu ý:** Nếu gặp lỗi "the requested nginx plugin does not appear to be installed":
+- Đảm bảo đã cài đặt `python3-certbot-nginx` (không chỉ `certbot`)
+- Kiểm tra Nginx đã được cài đặt: `sudo apt install -y nginx`
+- Xem hướng dẫn chi tiết: [FIX_CERTBOT_NGINX_ERROR.md](./FIX_CERTBOT_NGINX_ERROR.md)
 
 ### 6.2. Lấy SSL Certificate
 
 ```bash
 # Tự động cấu hình SSL cho Nginx (cho sale.thuanchay.vn)
 sudo certbot --nginx -d sale.thuanchay.vn
+
+# Hoặc với non-interactive mode (cho scripts)
+sudo certbot --nginx -d sale.thuanchay.vn --non-interactive --agree-tos --email your-email@example.com --redirect
 
 # Hoặc chỉ lấy certificate (cấu hình thủ công)
 sudo certbot certonly --nginx -d sale.thuanchay.vn

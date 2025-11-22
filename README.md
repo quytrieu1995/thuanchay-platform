@@ -65,7 +65,38 @@ Website quản lý bán hàng với các chức năng tương tự Thuần Chay 
 2. Cài đặt Node.js (sẽ bao gồm cả npm)
 3. Khởi động lại terminal sau khi cài đặt
 
+**⚠️ Lưu ý:**
+
+- **Windows:** Nếu gặp lỗi `npm error gyp`, cần cài đặt Python và Visual Studio Build Tools
+  - 📖 Xem hướng dẫn fix: [FIX_NPM_GYP_ERROR.md](./FIX_NPM_GYP_ERROR.md)
+  - 💡 **Khuyến nghị:** Sử dụng WSL để tránh các vấn đề với native modules
+
+- **Ubuntu/Linux:** Nếu gặp lỗi khi cài đặt hoặc deploy
+  - 📖 Xem hướng dẫn fix: [FIX_UBUNTU_ERRORS.md](./FIX_UBUNTU_ERRORS.md)
+  - 💡 **Giải pháp nhanh:** `sudo apt install -y build-essential python3`
+
 ## Cài đặt và chạy
+
+### 🚀 Quick Start (Sau khi clone)
+
+```bash
+# 1. Clone repository
+git clone https://github.com/quytrieu1995/thuanchay-platform.git
+cd thuanchay-platform
+
+# 2. Cài đặt dependencies
+npm install
+
+# 3. Chạy backend (Terminal 1)
+npm run server
+
+# 4. Chạy frontend (Terminal 2 - mở terminal mới)
+npm run dev
+
+# 5. Mở trình duyệt: http://localhost:5173
+```
+
+📖 **Xem hướng dẫn chi tiết:** [HUONG_DAN_CHAY_SAU_KHI_CLONE.md](./HUONG_DAN_CHAY_SAU_KHI_CLONE.md)
 
 ### Cách 1: Sử dụng script tự động (Khuyến nghị)
 

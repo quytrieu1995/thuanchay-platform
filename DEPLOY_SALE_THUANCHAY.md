@@ -73,14 +73,28 @@ sudo apt install -y nginx
 ### 5. Cấu hình Nginx
 
 ```bash
-# Copy file config có sẵn
+# Đảm bảo Nginx đã được cài đặt
+sudo apt update
+sudo apt install -y nginx
+
+# Kiểm tra Nginx đã được cài đặt
+sudo systemctl status nginx
+
+# Kiểm tra file config có tồn tại không
+ls -la /var/www/thuanchay-platform/nginx-sale.thuanchay.vn.conf
+
+# Copy file config có sẵn (đảm bảo có sudo)
 sudo cp /var/www/thuanchay-platform/nginx-sale.thuanchay.vn.conf /etc/nginx/sites-available/sale.thuanchay.vn
+
+# Hoặc nếu file không tồn tại, tạo file mới
+sudo nano /etc/nginx/sites-available/sale.thuanchay.vn
+# Copy nội dung từ nginx-sale.thuanchay.vn.conf
 
 # Kích hoạt site
 sudo ln -s /etc/nginx/sites-available/sale.thuanchay.vn /etc/nginx/sites-enabled/
 
 # Xóa default site (tùy chọn)
-sudo rm /etc/nginx/sites-enabled/default
+sudo rm -f /etc/nginx/sites-enabled/default
 
 # Kiểm tra cấu hình
 sudo nginx -t
@@ -92,15 +106,25 @@ sudo systemctl reload nginx
 ### 6. Cài đặt SSL với Let's Encrypt
 
 ```bash
-# Cài đặt Certbot
+# Cài đặt Certbot và Nginx plugin
+sudo apt update
 sudo apt install -y certbot python3-certbot-nginx
+
+# Kiểm tra plugin có sẵn
+certbot plugins
 
 # Lấy SSL certificate (tự động cấu hình)
 sudo certbot --nginx -d sale.thuanchay.vn
 
+# Hoặc non-interactive mode
+sudo certbot --nginx -d sale.thuanchay.vn --non-interactive --agree-tos --email your-email@example.com --redirect
+
 # Test auto-renewal
 sudo certbot renew --dry-run
 ```
+
+**⚠️ Nếu gặp lỗi:** "the requested nginx plugin does not appear to be installed"
+- Xem hướng dẫn: [FIX_CERTBOT_NGINX_ERROR.md](./FIX_CERTBOT_NGINX_ERROR.md)
 
 ### 7. Chạy ứng dụng với PM2
 

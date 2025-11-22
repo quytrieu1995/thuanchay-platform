@@ -253,6 +253,8 @@ pm2 restart thuanchay-api
 
 ## 🐛 Troubleshooting
 
+📖 **Xem hướng dẫn fix lỗi chi tiết:** [FIX_UBUNTU_ERRORS.md](./FIX_UBUNTU_ERRORS.md)
+
 ### Lỗi: Cannot connect to server
 
 ```bash
