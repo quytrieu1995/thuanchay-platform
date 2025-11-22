@@ -196,8 +196,35 @@ sudo ./setup-domain.sh your-domain.com
 **Hướng dẫn chi tiết:**
 - 📖 [Deploy cơ bản](./HUONG_DAN_DEPLOY_VPS.md)
 - 🌐 [Cấu hình Domain và SSL](./HUONG_DAN_DEPLOY_DOMAIN.md) - **Để truy cập từ internet**
+<<<<<<< Updated upstream
 - 🚀 [GitHub Auto Deploy](./HUONG_DAN_GITHUB_DEPLOY.md) - **Tự động deploy khi push code** (Khuyến nghị)
 - ⚡ [Quick Start GitHub Deploy](./README_GITHUB.md) - **Hướng dẫn nhanh**
+=======
+- 🚀 [Deploy Tự Động sau khi Clone](./HUONG_DAN_DEPLOY_TU_DONG.md) - **Khuyến nghị - Tự động deploy sau khi clone**
+
+### Deploy Tự Động sau khi Clone (Khuyến nghị)
+
+**Trên VPS Ubuntu:**
+
+```bash
+# 1. Setup VPS (chạy một lần duy nhất)
+cd /var/www
+git clone <your-repo-url> thuanchay-platform
+cd thuanchay-platform
+chmod +x setup-vps.sh deploy-auto.sh
+sudo ./setup-vps.sh sale.thuanchay.vn
+
+# 2. Deploy tự động
+sudo ./deploy-auto.sh sale.thuanchay.vn
+```
+
+Sau đó mỗi lần có code mới:
+```bash
+cd /var/www/thuanchay-platform
+git pull origin main
+sudo ./deploy-auto.sh sale.thuanchay.vn
+```
+>>>>>>> Stashed changes
 
 ## Giao diện
 

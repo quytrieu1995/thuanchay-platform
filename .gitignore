@@ -23,7 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
+<<<<<<< Updated upstream
 # Deploy scripts with sensitive info (keep deploy-ubuntu.sh and setup-vps-github.sh)
+=======
+# Deploy scripts with sensitive info (keep deploy-auto.sh and setup-vps.sh)
+>>>>>>> Stashed changes
 deploy-config.sh
 .env.deploy
 
