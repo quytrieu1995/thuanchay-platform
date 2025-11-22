@@ -14,17 +14,14 @@ npm install concurrently --save-dev
 npm install
 ```
 
-Script `start-server.sh` sẽ tự động cài đặt nếu thiếu.
+Package `concurrently` sẽ được tự động cài đặt khi chạy `npm run start:dev`.
 
 ## 🔧 Lỗi: qt.qpa.xcb: could not connect to display
 
 **Giải pháp nhanh:**
 
 ```bash
-# Chạy script fix environment
-source fix-env.sh
-
-# Hoặc set thủ công
+# Set environment variables
 export QT_QPA_PLATFORM=offscreen
 export DISPLAY=:0
 
@@ -103,7 +100,7 @@ PORT=3001 npm run server
 Sau khi clone và trước khi chạy:
 
 - [ ] Đã chạy `npm install`
-- [ ] Trên Ubuntu server: Đã chạy `source fix-env.sh`
+- [ ] Trên Ubuntu server: Đã set `QT_QPA_PLATFORM=offscreen` và `DISPLAY=:0`
 - [ ] Kiểm tra `concurrently` đã được cài: `ls node_modules/.bin/concurrently`
 - [ ] Kiểm tra environment variables: `echo $QT_QPA_PLATFORM`
 

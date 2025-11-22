@@ -293,15 +293,11 @@ Script không có quyền thực thi.
 ### Giải pháp
 
 ```bash
-# Cấp quyền thực thi
-chmod +x start-server.sh
-chmod +x deploy.sh
-chmod +x setup-domain.sh
+# Chạy server trực tiếp
+npm run server
 
-# Chạy với quyền phù hợp
-./start-server.sh
-# hoặc
-sudo ./deploy.sh
+# Hoặc chạy cả frontend và backend
+npm run start:dev
 ```
 
 ## 🔧 Lỗi: Git clone bị timeout

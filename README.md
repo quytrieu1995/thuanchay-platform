@@ -74,7 +74,7 @@ Website quản lý bán hàng với các chức năng tương tự Thuần Chay 
 - **Ubuntu/Linux:** Nếu gặp lỗi khi cài đặt
   - 📖 Xem hướng dẫn fix: [docs/troubleshooting/FIX_UBUNTU_ERRORS.md](./docs/troubleshooting/FIX_UBUNTU_ERRORS.md)
   - 💡 **Giải pháp nhanh:** `sudo apt install -y build-essential python3`
-  - 🔧 **Lỗi Qt XCB:** Chạy `source fix-env.sh` hoặc xem [docs/troubleshooting/FIX_QT_XCB_ERROR.md](./docs/troubleshooting/FIX_QT_XCB_ERROR.md)
+  - 🔧 **Lỗi Qt XCB:** Xem [docs/troubleshooting/FIX_QT_XCB_ERROR.md](./docs/troubleshooting/FIX_QT_XCB_ERROR.md)
   - 🔧 **Lỗi concurrently:** Script sẽ tự động cài đặt, hoặc chạy `npm install concurrently --save-dev`
 
 ## Cài đặt và chạy
@@ -86,20 +86,16 @@ Website quản lý bán hàng với các chức năng tương tự Thuần Chay 
 git clone https://github.com/quytrieu1995/thuanchay-platform.git
 cd thuanchay-platform
 
-# 2. Fix environment (Chỉ cho Ubuntu server - headless)
-# Bỏ qua bước này nếu chạy trên Windows/Mac desktop
-source fix-env.sh
-
-# 3. Cài đặt dependencies
+# 2. Cài đặt dependencies
 npm install
 
-# 4. Chạy backend (Terminal 1)
+# 3. Chạy backend (Terminal 1)
 npm run server
 
-# 5. Chạy frontend (Terminal 2 - mở terminal mới)
+# 4. Chạy frontend (Terminal 2 - mở terminal mới)
 npm run dev
 
-# 6. Mở trình duyệt: http://localhost:5173
+# 5. Mở trình duyệt: http://localhost:5173
 ```
 
 **Hoặc chạy cả hai cùng lúc:**
@@ -110,29 +106,7 @@ npm run start:dev
 📖 **Xem hướng dẫn chi tiết:** [docs/guides/HUONG_DAN_CHAY_SAU_KHI_CLONE.md](./docs/guides/HUONG_DAN_CHAY_SAU_KHI_CLONE.md)  
 🔧 **Gặp lỗi?** Xem [docs/troubleshooting/QUICK_FIX.md](./docs/troubleshooting/QUICK_FIX.md)
 
-### Cách 1: Sử dụng script tự động (Khuyến nghị)
-
-**Linux/Mac:**
-```bash
-chmod +x start-server.sh fix-env.sh
-./start-server.sh
-```
-
-Script sẽ tự động:
-- ✅ Kiểm tra Node.js đã cài đặt chưa
-- ✅ Cài đặt dependencies nếu chưa có
-- ✅ Tự động cài `concurrently` nếu thiếu
-- ✅ Set environment variables để fix Qt XCB error (Ubuntu server)
-- ✅ Khởi động development server
-
-**Trên Ubuntu server (headless), fix environment trước:**
-```bash
-source fix-env.sh
-# hoặc
-. ./fix-env.sh
-```
-
-### Cách 2: Chạy thủ công
+### Chạy thủ công
 
 1. Mở terminal trong thư mục dự án
 

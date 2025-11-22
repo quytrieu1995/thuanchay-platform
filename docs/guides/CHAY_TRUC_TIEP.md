@@ -34,24 +34,15 @@ Mở trình duyệt và truy cập: **http://localhost:5173**
 
 ---
 
-## Cách chạy Script với Execution Policy Bypass
-
-Nếu muốn chạy script, sử dụng lệnh sau:
+## Chạy cả Frontend và Backend cùng lúc
 
 ```powershell
-cd C:\Thuần Chay VN-clone
-powershell -ExecutionPolicy Bypass -File .\start.ps1
+npm run start:dev
 ```
 
-Hoặc thay đổi Execution Policy (cần quyền Administrator):
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-Sau đó chạy:
-```powershell
-.\start.ps1
-```
+Lệnh này sẽ tự động:
+- ✅ Cài đặt `concurrently` nếu chưa có
+- ✅ Chạy cả frontend và backend cùng lúc
+- ✅ Hiển thị logs của cả hai server
 
 

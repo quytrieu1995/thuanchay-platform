@@ -17,19 +17,22 @@ git clone https://github.com/quytrieu1995/thuanchay-platform.git
 cd thuanchay-platform
 ```
 
-### Bước 2: Fix Environment (Chỉ cho Ubuntu Server)
+### Bước 2: Fix Environment (Chỉ cho Ubuntu Server - Headless)
 
-**Nếu bạn đang chạy trên Ubuntu server (headless), chạy script này trước:**
+**Nếu bạn đang chạy trên Ubuntu server (headless), set environment variables:**
 
 ```bash
 # Fix Qt XCB display error
-chmod +x fix-env.sh
-source fix-env.sh
-# hoặc
-. ./fix-env.sh
+export QT_QPA_PLATFORM=offscreen
+export DISPLAY=:0
+
+# Để áp dụng vĩnh viễn, thêm vào ~/.bashrc
+echo 'export QT_QPA_PLATFORM=offscreen' >> ~/.bashrc
+echo 'export DISPLAY=:0' >> ~/.bashrc
+source ~/.bashrc
 ```
 
-Script sẽ tự động set environment variables để tránh lỗi Qt XCB.
+📖 **Xem hướng dẫn chi tiết:** [../troubleshooting/FIX_QT_XCB_ERROR.md](../troubleshooting/FIX_QT_XCB_ERROR.md)
 
 ### Bước 3: Cài đặt dependencies
 
@@ -91,7 +94,7 @@ Lệnh này sẽ tự động:
 - ✅ Set environment variables để fix Qt XCB error
 - ✅ Chạy cả frontend và backend cùng lúc
 
-**Lưu ý:** Trên Ubuntu server, script đã tự động set `QT_QPA_PLATFORM=offscreen` để tránh lỗi Qt XCB.
+**Lưu ý:** Trên Ubuntu server, cần set environment variables như ở Bước 2 để tránh lỗi Qt XCB.
 
 ## 📝 Các lệnh khác
 
