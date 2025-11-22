@@ -1,0 +1,89 @@
+# Quick Fix - Các Lỗi Thường Gặp
+
+Hướng dẫn nhanh để fix các lỗi phổ biến khi chạy project.
+
+## 🔧 Lỗi: concurrently: not found
+
+**Giải pháp:**
+
+```bash
+# Cài đặt concurrently
+npm install concurrently --save-dev
+
+# Hoặc chạy lại npm install
+npm install
+```
+
+Script `start-server.sh` sẽ tự động cài đặt nếu thiếu.
+
+## 🔧 Lỗi: qt.qpa.xcb: could not connect to display
+
+**Giải pháp nhanh:**
+
+```bash
+# Chạy script fix environment
+source fix-env.sh
+
+# Hoặc set thủ công
+export QT_QPA_PLATFORM=offscreen
+export DISPLAY=:0
+
+# Sau đó chạy lại
+npm run server
+```
+
+**Áp dụng vĩnh viễn:**
+
+```bash
+# Thêm vào ~/.bashrc
+echo 'export QT_QPA_PLATFORM=offscreen' >> ~/.bashrc
+echo 'export DISPLAY=:0' >> ~/.bashrc
+source ~/.bashrc
+```
+
+## 🔧 Lỗi: npm error gyp (Windows)
+
+**Giải pháp:**
+
+1. Cài đặt Python 3.11+ từ https://www.python.org/downloads/
+   - ✅ Chọn "Add Python to PATH"
+
+2. Cài đặt Visual Studio Build Tools từ:
+   https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022
+   - ✅ Chọn "Desktop development with C++"
+
+3. Cấu hình npm:
+   ```powershell
+   npm config set python "C:\Users\13124\AppData\Local\Programs\Python\Python311\python.exe"
+   ```
+
+4. Cài lại:
+   ```powershell
+   npm install
+   ```
+
+## 🔧 Lỗi: npm error gyp (Ubuntu)
+
+**Giải pháp:**
+
+```bash
+sudo apt update
+sudo apt install -y build-essential python3
+npm install
+```
+
+## ✅ Checklist
+
+Sau khi clone và trước khi chạy:
+
+- [ ] Đã chạy `npm install`
+- [ ] Trên Ubuntu server: Đã chạy `source fix-env.sh`
+- [ ] Kiểm tra `concurrently` đã được cài: `ls node_modules/.bin/concurrently`
+- [ ] Kiểm tra environment variables: `echo $QT_QPA_PLATFORM`
+
+## 📖 Xem hướng dẫn chi tiết
+
+- [FIX_UBUNTU_ERRORS.md](./FIX_UBUNTU_ERRORS.md) - Tất cả lỗi Ubuntu
+- [FIX_QT_XCB_ERROR.md](./FIX_QT_XCB_ERROR.md) - Lỗi Qt XCB chi tiết
+- [FIX_NPM_GYP_ERROR.md](./FIX_NPM_GYP_ERROR.md) - Lỗi npm gyp Windows
+

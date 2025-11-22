@@ -9,7 +9,7 @@
     "server": "node server/index.js",
     "start": "npm run server",
     "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run server",
-    "start:dev": "concurrently \"npm run dev\" \"npm run server\""
+    "start:dev": "QT_QPA_PLATFORM=offscreen DISPLAY=:0 concurrently \"npm run dev\" \"npm run server\""
   },
   "dependencies": {
     "react": "^18.2.0",

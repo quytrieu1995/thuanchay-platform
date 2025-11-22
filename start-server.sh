@@ -5,6 +5,10 @@
 
 echo "🚀 Starting Thuần Chay Platform Server..."
 
+# Fix Qt XCB display error (for headless servers)
+export QT_QPA_PLATFORM=offscreen
+export DISPLAY=:0
+
 # Kiểm tra Node.js
 if ! command -v node &> /dev/null; then
     echo "❌ Node.js is not installed. Please install Node.js first."
@@ -20,8 +24,17 @@ if [ ! -d "node_modules" ]; then
     npm install
 fi
 
+# Đảm bảo concurrently được cài đặt (cho start:dev)
+if [ ! -f "node_modules/.bin/concurrently" ]; then
+    echo "📦 Installing concurrently..."
+    npm install concurrently --save-dev
+fi
+
 # Tạo thư mục database nếu chưa có
 mkdir -p server/database
+
+# Tạo thư mục logs nếu chưa có
+mkdir -p logs
 
 # Chạy server
 echo "🌟 Starting server..."

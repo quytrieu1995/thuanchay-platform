@@ -17,7 +17,21 @@ git clone https://github.com/quytrieu1995/thuanchay-platform.git
 cd thuanchay-platform
 ```
 
-### Bước 2: Cài đặt dependencies
+### Bước 2: Fix Environment (Chỉ cho Ubuntu Server)
+
+**Nếu bạn đang chạy trên Ubuntu server (headless), chạy script này trước:**
+
+```bash
+# Fix Qt XCB display error
+chmod +x fix-env.sh
+source fix-env.sh
+# hoặc
+. ./fix-env.sh
+```
+
+Script sẽ tự động set environment variables để tránh lỗi Qt XCB.
+
+### Bước 3: Cài đặt dependencies
 
 ```bash
 npm install
@@ -25,9 +39,10 @@ npm install
 
 **Lưu ý:** 
 - Trên Windows, nếu gặp lỗi với `better-sqlite3`, cần cài đặt Python và build tools (xem phần Troubleshooting)
-- Trên Linux/Mac, thường không có vấn đề
+- Trên Linux/Mac desktop, thường không có vấn đề
+- Trên Ubuntu server (headless), đã fix ở Bước 2
 
-### Bước 3: Chạy Backend Server
+### Bước 4: Chạy Backend Server
 
 Mở terminal thứ nhất:
 
@@ -49,7 +64,7 @@ Bạn sẽ thấy thông báo:
 💡 Health check: http://localhost:3000/health
 ```
 
-### Bước 4: Chạy Frontend (Terminal mới)
+### Bước 5: Chạy Frontend (Terminal mới)
 
 Mở terminal thứ hai (giữ terminal backend đang chạy):
 
@@ -59,19 +74,24 @@ npm run dev
 
 Frontend sẽ chạy tại: **http://localhost:5173**
 
-### Bước 5: Mở trình duyệt
+### Bước 6: Mở trình duyệt
 
 Truy cập: **http://localhost:5173**
 
 ## 🎯 Cách chạy nhanh (Cả Frontend và Backend cùng lúc)
 
-Nếu đã cài `concurrently`, có thể chạy cả hai cùng lúc:
+Script sẽ tự động cài đặt `concurrently` nếu chưa có:
 
 ```bash
 npm run start:dev
 ```
 
-Lệnh này sẽ tự động chạy cả frontend và backend.
+Lệnh này sẽ tự động:
+- ✅ Cài đặt `concurrently` nếu chưa có
+- ✅ Set environment variables để fix Qt XCB error
+- ✅ Chạy cả frontend và backend cùng lúc
+
+**Lưu ý:** Trên Ubuntu server, script đã tự động set `QT_QPA_PLATFORM=offscreen` để tránh lỗi Qt XCB.
 
 ## 📝 Các lệnh khác
 
@@ -180,6 +200,36 @@ Vite sẽ tự động tìm port khác, hoặc bạn có thể chỉ định por
 ```bash
 npm run dev -- --port 5174
 ```
+
+### Lỗi: concurrently: not found
+
+```bash
+# Cài đặt concurrently
+npm install concurrently --save-dev
+
+# Hoặc chạy lại npm install (sẽ tự động cài)
+npm install
+```
+
+### Lỗi: qt.qpa.xcb: could not connect to display
+
+**Trên Ubuntu server (headless):**
+
+```bash
+# Set environment variables
+export QT_QPA_PLATFORM=offscreen
+export DISPLAY=:0
+
+# Hoặc thêm vào ~/.bashrc để áp dụng vĩnh viễn
+echo 'export QT_QPA_PLATFORM=offscreen' >> ~/.bashrc
+echo 'export DISPLAY=:0' >> ~/.bashrc
+source ~/.bashrc
+
+# Sau đó chạy lại
+npm run server
+```
+
+📖 **Xem hướng dẫn chi tiết:** [FIX_QT_XCB_ERROR.md](./FIX_QT_XCB_ERROR.md)
 
 ### Lỗi: Module not found
 
