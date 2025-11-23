@@ -11,11 +11,9 @@ docs/
 ├── PERFORMANCE_OPTIMIZATION.md       # Hướng dẫn tối ưu hiệu suất
 ├── guides/                           # Các hướng dẫn sử dụng
 │   ├── HUONG_DAN_CHAY_SAU_KHI_CLONE.md
-│   ├── HUONG_DAN_CAI_DAT.md
-│   ├── HUONG_DAN_CAI_DAT_XLSX.md
-│   ├── HUONG_DAN_CAI_XLSX.md
 │   ├── QUICK_START.md
-│   └── CHAY_TRUC_TIEP.md
+│   ├── CHAY_TRUC_TIEP.md
+│   └── LINUX_DISTRIBUTIONS.md        # Khuyến nghị Linux distribution
 └── troubleshooting/                  # Hướng dẫn fix lỗi
     ├── QUICK_FIX.md                  # Fix nhanh các lỗi phổ biến
     ├── FIX_UBUNTU_ERRORS.md          # Tất cả lỗi Ubuntu/Linux

@@ -76,6 +76,7 @@ Website quản lý bán hàng với các chức năng tương tự Thuần Chay 
   - 💡 **Giải pháp nhanh:** `sudo apt install -y build-essential python3`
   - 🔧 **Lỗi Qt XCB:** Xem [docs/troubleshooting/FIX_QT_XCB_ERROR.md](./docs/troubleshooting/FIX_QT_XCB_ERROR.md)
   - 🔧 **Lỗi concurrently:** Script sẽ tự động cài đặt, hoặc chạy `npm install concurrently --save-dev`
+  - 🐧 **Chọn Linux Distribution:** Xem [docs/guides/LINUX_DISTRIBUTIONS.md](./docs/guides/LINUX_DISTRIBUTIONS.md) - **Khuyến nghị: Ubuntu Server LTS**
 
 ## Cài đặt và chạy
 
