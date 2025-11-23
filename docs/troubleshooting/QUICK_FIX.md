@@ -73,17 +73,20 @@ npm install
 
 **Giải pháp:**
 
-Server sẽ **tự động tìm port khác** nếu port 3000 đã được sử dụng.
+Server sẽ **tự động tìm port khác** nếu port 3000 đã được sử dụng (từ phiên bản mới).
 
 **Nếu muốn fix thủ công:**
 
 ```bash
-# Tìm và kill process đang dùng port 3000
+# Cách 1: Tìm và kill process đang dùng port 3000
 sudo lsof -ti:3000 | xargs kill -9
+# Hoặc
+sudo fuser -k 3000/tcp
 
-# Hoặc nếu đang chạy với PM2
-pm2 stop thuanchay-api
-pm2 delete thuanchay-api
+# Cách 2: Nếu đang chạy với PM2
+pm2 list                    # Xem danh sách
+pm2 stop thuanchay-api      # Dừng app
+pm2 delete thuanchay-api    # Xóa app
 
 # Sau đó chạy lại
 npm run server
@@ -94,6 +97,8 @@ npm run server
 ```bash
 PORT=3001 npm run server
 ```
+
+**Lưu ý:** Sau khi pull code mới, server sẽ tự động tìm port khác nếu port 3000 bận.
 
 ## ✅ Checklist
 
